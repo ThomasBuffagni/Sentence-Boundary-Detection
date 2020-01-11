@@ -32,8 +32,7 @@ class Model():
         """
         print("Starting Testing...")
         self.test_words = words
-        sentences = self.guess_sentences(words)
-        grams = self.get_3grams(sentences, labeled=False)
+        grams = self.three_grams_from_sentence(words, '~', '~')
         raw_features = self._extract_raw_features(grams, labeled=False)
         self.pred_probs = self.get_probs(grams, raw_features)
         return self.pred_probs
@@ -172,26 +171,6 @@ class Model():
             features[i] = feat
         
         return features
-
-
-    def guess_sentences(self, words):
-        """
-        Group a list of words into possible sentences according to some rules
-        """
-        sentences = list()
-
-        start = 0
-        for i, word in enumerate(words):
-            # if the word ends with a '.' and this point is the only one in the word (example: != U.S.)
-            if word.endswith('.') and word.index('.') == len(word)-1:
-                sentences.append(self.group_sentence(words, start, i))
-                start = i+1
-
-            elif re.match('.*\.["\')\]]*$', word): # matches with '...' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                sentences.append(self.group_sentence(words, start, i))
-                start = i+1
-
-        return sentences
 
 
     def group_sentence(self, words, start, end):
