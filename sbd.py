@@ -1,5 +1,3 @@
-# http://www.sls.hawaii.edu/bley-vroman/brown_corpus.html
-
 import nltk
 import numpy as np
 #nltk.download() # this opens a GUI to download all corpora needed

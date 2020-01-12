@@ -34,8 +34,14 @@ The prediction is composed of 3 steps:
 
 The script sbd.py provides an implementation of the model with the brown corpus from NLTK.
 
+
+You might want to uncomment the third line of the script to download the corpus.
+
 ### The Command Line
 
 * _-fi_ followed by a file path will output the sentences to a file.
 * _-fo_ followed by either _text_ or _html_ will define the format of the output sentences. If an unknown value is passed, it will be set to _text_ by default.
 * _-t_ followed by a float defines the probability threshold used to make the decision whether to cut the sentence or not.
+
+### HTML
+The html format will wrap the sentences with a <span> tag.
