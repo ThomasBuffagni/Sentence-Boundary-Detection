@@ -29,3 +29,13 @@ The prediction is composed of ... steps:
 1. 3grams are extracted from the list of words
 2. From each 3gram, some features are extracted
 3. These features are compared to the ones previously learned, and the probabilities are calculated (see https://en.wikipedia.org/wiki/Naive_Bayes_classifier). 
+
+## Example
+
+The script sbd.py provides an implementation of the model with the brown corpus from NLTK.
+
+### The Command Line
+
+* _-fi_ followed by a file path will output the sentences to a file.
+* _-fo_ followed by either _text_ or _html_ will define the format of the output sentences. If an unknown value is passed, it will be set to _text_ by default.
+* _-t_ followed by a float defines the probability threshold used to make the decision whether to cut the sentence or not.

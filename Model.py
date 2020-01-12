@@ -163,10 +163,16 @@ class Model():
 
             # Previous word is capitalized
             feat['prev_word_cap'] = str(is_word_capitalized(context[0]))
+            # Length of previous word
+            feat['prev_word_len'] = str(len(context[0]))
             # Current word in capitalized
             feat['curr_word_cap'] = str(is_word_capitalized(context[1]))
+            # Length of current word
+            feat['curr_word_len'] = str(len(context[1]))
             # Next word is capitalized
             feat['next_word_cap'] = str(is_word_capitalized(context[2]))
+            # Length of next word
+            feat['next_word_len'] = str(len(context[2]))
             
             features[i] = feat
         
@@ -194,14 +200,12 @@ class Model():
         """
         # Initialize probabilities with the priori probability calculated during training
         label_prob = {label: self.features[(label, 'prior')] for label in self.labels}
-
         
         for label in self.labels:
             # Evaluate arbitrary features
             for name, val in features.items():
                 feature_name = name + '_' + val
                 key = (label, feature_name)
-                # label_prob[label] *= self.features.get(key, 1) # Essayer en ignorant plutôt que de multiplier par 1 pour voir si ça va plus vite
                 if key in self.features:
                     label_prob[label] *= self.features[key]
             
@@ -209,9 +213,9 @@ class Model():
             for i, word in enumerate(context):
                 feature_name = 'w' + str(i) + '_' + word
                 key = (label, feature_name)
-                # label_prob[label] *= self.features.get(key, 1) # Essayer en ignorant plutôt que de multiplier par 1 pour voir si ça va plus vite
                 if key in self.features:
                     label_prob[label] *= self.features[key]
+
         
         # Normalization
         total_prob = sum(label_prob.values())

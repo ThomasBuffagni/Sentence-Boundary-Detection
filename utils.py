@@ -1,4 +1,5 @@
 import numpy as np
+import argparse as ap
 
 def train_test_indices(n):
     a = np.arange(n)
@@ -13,18 +14,14 @@ def is_word_capitalized(word):
     """
     return word[0].isupper()
 
-def display_pred_sentences(words, probs, threshold=0.5):
-    """
-        Display the predicted sentences according to the probabilities calculated by the model
-        and the threshold
-    """
     
-    for curr_word, prob_dict in zip(words, probs):
-        # end = ' ' if prob_dict[0] > prob_dict[1] else '\n\n'
-        end = '\n\n' if prob_dict[1] >= threshold else ' '
-        print(curr_word, end=end)
-    
-def wrap_sentences(words, probs, threshold=0.5, start_tag='<span>', end_tag='</span>'):
+def pred_sentences(words, probs, threshold=0.5):
+    return wrap_sentences(words, probs, threshold, '\n\n', '')
+
+def html_sentences(words, probs, threshold=0.5, start_tag='<span>', end_tag='</span>'):
+    return wrap_sentences(words, probs, threshold, start_tag, end_tag)
+
+def wrap_sentences(words, probs, threshold, start_tag, end_tag):
     html = start_tag
 
     for curr_word, prob_dict in zip(words, probs):
@@ -32,4 +29,22 @@ def wrap_sentences(words, probs, threshold=0.5, start_tag='<span>', end_tag='</s
         html += curr_word + end
     
     # Remove the last start tag present at the end of the string
-    return html[:-len(start_tag)]
+    return html[:-len(start_tag)].strip()
+
+def to_file(string, file_name):
+    print("Writing data on file " + file_name + " ...")
+    file = open(file_name, "w")
+    file.write(string)
+
+def parse_command_line():
+    parser = ap.ArgumentParser()
+    parser.add_argument("-fi", "--file", type=str,
+                        help="path of the output file")
+    parser.add_argument("-fo", "--format", type=str, default="text",
+                        help="Format of the output sentences")
+    parser.add_argument("-t", "--threshold", type=float, default=0.5,
+                        help="Probability threshold")
+    
+    args = parser.parse_args()
+
+    return args

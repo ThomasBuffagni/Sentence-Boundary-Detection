@@ -6,13 +6,15 @@ import numpy as np
 from nltk.corpus import brown
 
 from Model import Model
-from utils import display_pred_sentences, train_test_indices, wrap_sentences
+from utils import train_test_indices, html_sentences, pred_sentences, to_file, parse_command_line
 
 if __name__ == "__main__":
     
+    args = parse_command_line()
+
+    print("Loading Dataset...")
     sentences = np.array(brown.sents())
-    #N = len(sentences)
-    N = 50
+    N = len(sentences)
 
     train_indices, test_indices = train_test_indices(N)
 
@@ -29,5 +31,17 @@ if __name__ == "__main__":
 
     # Finding sentence boundaries
     pred_probs = model.predict_prob(test_words)
-    display_pred_sentences(test_words, pred_probs)
-    # print(wrap_sentences(test_words, pred_probs, 0.5, '<span>', '</span>'))
+
+    if args.format == "text":
+        format = pred_sentences
+    elif args.format == "html":
+        format = html_sentences
+    else:
+        print("Unknown format, set to default value")
+        format = pred_sentences
+        
+    
+    if args.file:
+        to_file(format(test_words, pred_probs, args.threshold), args.file)
+    else:
+        print(format(test_words, pred_probs, args.threshold))
