@@ -39,9 +39,9 @@ You might want to uncomment the third line of the script to download the corpus.
 
 ### The Command Line
 
-* _-fi_ followed by a file path will output the sentences to a file.
+* _-fi_ followed by a file path will output the sentences to a file. By default, the sentences will be printed.
 * _-fo_ followed by either _text_ or _html_ will define the format of the output sentences. If an unknown value is passed, it will be set to _text_ by default.
-* _-t_ followed by a float defines the probability threshold used to make the decision whether to cut the sentence or not.
+* _-t_ followed by a float defines the probability threshold used to make the decision whether to cut the sentence or not. Default value = 0.5.
 
 ### HTML
 The html format will wrap the sentences with a _span_ tag.
