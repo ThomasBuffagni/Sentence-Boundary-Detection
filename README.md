@@ -18,14 +18,14 @@ The model calculates 2 probabilities for each word:
 
 ### How it works
 #### Training
-The model is trained in ... steps:
+The model is trained in 3 steps:
 1. 3grams are extracted from the sentences
 2. Each 3gram is labeled: 1 if the central word is at the end of a sentence, 0 otherwise.
 3. From each 3gram, some features are extracted, associated to the label of the 3gram and memorized by the model.
 
 
 #### Predictions
-The prediction is composed of ... steps:
+The prediction is composed of 3 steps:
 1. 3grams are extracted from the list of words
 2. From each 3gram, some features are extracted
 3. These features are compared to the ones previously learned, and the probabilities are calculated (see https://en.wikipedia.org/wiki/Naive_Bayes_classifier). 
