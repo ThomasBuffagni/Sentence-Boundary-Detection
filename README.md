@@ -44,4 +44,4 @@ You might want to uncomment the third line of the script to download the corpus.
 * _-t_ followed by a float defines the probability threshold used to make the decision whether to cut the sentence or not.
 
 ### HTML
-The html format will wrap the sentences with a <span> tag.
+The html format will wrap the sentences with a _span_ tag.
